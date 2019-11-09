@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "empresa")
-public class Empresa {
+@Table(name = "company")
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
     private String cnpj;
     @OneToMany(
-            mappedBy = "empresa",
+            mappedBy = "company",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Telefone> telefones = new ArrayList<Telefone>();
+    private List<Phone> phones = new ArrayList<Phone>();
 
-    public Empresa() {
+    public Company() {
     }
 
     public Integer getId() {
@@ -41,12 +41,12 @@ public class Empresa {
         this.nome = nome;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getCnpj() {
@@ -57,15 +57,15 @@ public class Empresa {
         this.cnpj = cnpj;
     }
 
-    public List<Telefone> getTelefones() {
-        return telefones;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 
-    public void addTelefone(Telefone telefone){
-        this.telefones.add(telefone);
+    public void addTelefone(Phone phone){
+        this.phones.add(phone);
     }
 }

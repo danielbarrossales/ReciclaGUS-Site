@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "telefone")
-public class Telefone {
+@Table(name = "phone")
+public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -14,20 +14,19 @@ public class Telefone {
     private Long numero;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empresa_id")
+    @JoinColumn(name = "company_id")
+    private Company company;
 
-    private Empresa empresa;
-
-    public Telefone() {
+    public Phone() {
     }
 
-    public Telefone(Integer id, Integer ddd, Long numero) {
+    public Phone(Integer id, Integer ddd, Long numero) {
         this.setId(id);
         this.setDdd(ddd);
         this.setNumero(numero);
     }
 
-    public Telefone(Integer ddd, Long numero) {
+    public Phone(Integer ddd, Long numero) {
         this.setId(id);
         this.setDdd(ddd);
         this.setNumero(numero);
@@ -58,11 +57,11 @@ public class Telefone {
         this.numero = numero;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
