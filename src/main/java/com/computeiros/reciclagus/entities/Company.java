@@ -1,5 +1,7 @@
 package com.computeiros.reciclagus.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +12,19 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(nullable = false)
     private String nome;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+    @Column(nullable = false)
     private String cnpj;
     @OneToMany(
             mappedBy = "company",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @Column(nullable = false)
     private List<Phone> phones = new ArrayList<Phone>();
 
     public Company() {
@@ -65,7 +70,7 @@ public class Company {
         this.phones = phones;
     }
 
-    public void addTelefone(Phone phone){
+    public void addTelefone(Phone phone) {
         this.phones.add(phone);
     }
 }

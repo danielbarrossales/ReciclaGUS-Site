@@ -1,5 +1,7 @@
 package com.computeiros.reciclagus.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +30,7 @@ public class CollectPoint {
             joinColumns = @JoinColumn(name = "collect_point_id"),
             inverseJoinColumns = @JoinColumn(name = "trash_id")
     )
+    @Column(nullable = false)
     private Set<Trash> trashes = new HashSet<Trash>();
 
     public Integer getId() {

@@ -1,11 +1,7 @@
 package com.computeiros.reciclagus.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "endereco")
@@ -13,11 +9,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    @Column(nullable = false)
     private String state;
+    @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
+    private String neighborhood;
+    @Column(nullable = false)
     private String street;
+    @Column(nullable = false)
     private Integer number;
+    @Column(nullable = false)
     private String complement;
 
     public Address() {
@@ -87,5 +89,13 @@ public class Address {
 
     public void setComplement(String complement) {
         this.complement = complement;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 }

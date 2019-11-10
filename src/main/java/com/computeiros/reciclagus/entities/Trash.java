@@ -1,5 +1,7 @@
 package com.computeiros.reciclagus.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,11 +12,14 @@ public class Trash {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String tipo;
+    @Column(nullable = false)
+    private String type;
     @ManyToMany(mappedBy = "targets")
+    @JsonIgnore
     private Set<CollectionCompany> companies = new HashSet<CollectionCompany>();
 
     @ManyToMany(mappedBy = "trashes")
+    @JsonIgnore
     private Set<CollectPoint> collPoints = new HashSet<CollectPoint>();
 
     public Integer getId() {
@@ -25,12 +30,12 @@ public class Trash {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getType() {
+        return type;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Set<CollectionCompany> getCompanies() {
