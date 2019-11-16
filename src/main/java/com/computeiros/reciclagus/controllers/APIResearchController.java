@@ -64,8 +64,7 @@ public class APIResearchController {
         list.add(collP);
         //
         //
-        Research r = new Research();
-        r.setTrashType("Eletronico");
+        var r = collPointRep.findAll();
         ObjectMapper mapper = new ObjectMapper();
         String answer = null;
         try {
