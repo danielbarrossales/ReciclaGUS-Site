@@ -1,6 +1,6 @@
 package com.computeiros.reciclagus.service;
 
-import com.computeiros.reciclagus.dto.CollectionPointDto;
+import com.computeiros.reciclagus.dto.CollectionPointRegistrationDto;
 import com.computeiros.reciclagus.models.CollectionPoint;
 import com.computeiros.reciclagus.repositories.CollectionPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ public class CollectionPointService {
     @Autowired
     CollectionPointRepository collPointRepo;
 
-    public CollectionPoint save(CollectionPointDto newCollPoint){
+    public CollectionPoint save(CollectionPointRegistrationDto newCollPoint){
         var collPoint = new CollectionPoint();
         collPoint.getAddress().setCity(newCollPoint.getCity());
         collPoint.getAddress().setComplement(newCollPoint.getComplement());

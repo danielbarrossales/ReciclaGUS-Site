@@ -1,6 +1,6 @@
 package com.computeiros.reciclagus.controllers;
 
-import com.computeiros.reciclagus.dto.CollectionPointDto;
+import com.computeiros.reciclagus.dto.CollectionPointRegistrationDto;
 import com.computeiros.reciclagus.service.CollectionPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +26,12 @@ public class AddCollectionPointController {
     }
 
     @ModelAttribute("collectionPoint")
-    public CollectionPointDto userRegistrationDto() {
-        return new CollectionPointDto();
+    public CollectionPointRegistrationDto userRegistrationDto() {
+        return new CollectionPointRegistrationDto();
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("collectionPoint") @Valid CollectionPointDto userDto,
+    public String registerUserAccount(@ModelAttribute("collectionPoint") @Valid CollectionPointRegistrationDto userDto,
                                       BindingResult result) {
         System.out.println("got here");
         if (result.hasErrors()) {

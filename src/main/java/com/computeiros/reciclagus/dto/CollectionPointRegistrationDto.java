@@ -3,7 +3,7 @@ package com.computeiros.reciclagus.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class CollectionPointDto {
+public class CollectionPointRegistrationDto {
     @NotEmpty
     private String state;
     @NotEmpty
