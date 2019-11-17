@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "company")
+@Table(name = "Company")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,8 +14,8 @@ public class Company {
     private String nome;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-    @Column(nullable = false)
+    private Address address = new Address();
+    @Column(nullable = false, unique = true)
     private String cnpj;
     @OneToMany(
             mappedBy = "company",

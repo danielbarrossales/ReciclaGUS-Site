@@ -9,10 +9,45 @@
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-    <title>Adicionar Collection Point - ReciclaGUS</title>
+    <title>Adicionar Empresa - ReciclaGUS</title>
 </head>
 
 <body>
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" th:href="@{/}">#</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Empresa</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="register-company">Adicionar Empresa</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Pontos de Coleta</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/add-collection-point}">Adicionar Ponto de Coleta</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -21,8 +56,8 @@
                 <div class="alert alert-info">Cadastro efetuado com sucesso!</div>
             </div>
 
-            <h1>Cadastro</h1>
-            <form th:action="@{/add-collection-point}" th:object="${collectionPoint}" method="post">
+            <h1>Cadastro de Empresa</h1>
+            <form th:action="@{/register-company}" th:object="${company}" method="post">
 
                 <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
                    th:each="error : ${#fields.errors('global')}" th:text="${error}">Erro de Validação</p>
@@ -104,7 +139,7 @@
                        th:text="${error}">Erro de Validação</p>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Adicionar Ponto de Coleta</button>
+                    <button type="submit" class="btn btn-success">Adicionar Empresa</button>
                 </div>
 
             </form>

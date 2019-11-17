@@ -14,6 +14,40 @@
 
 <body>
 <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" th:href="@{/}">#</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Empresa</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="register-company">Adicionar Empresa</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Pontos de Coleta</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/add-collection-point}">Adicionar Ponto de Coleta</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+</div>
+<div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 

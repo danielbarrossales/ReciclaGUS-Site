@@ -20,6 +20,10 @@ public class CompanyService {
         return compRepo.save(companyFromDto(companyDto));
     }
 
+    public Company findByCnpj(CompanyRegistrationDto companyDto){
+        return compRepo.findByCnpj(companyDto.getCnpj());
+    }
+
     private Company companyFromDto(CompanyRegistrationDto companyDto){
         Company com = new Company();
         com.getAddress().setNeighborhood(companyDto.getNeighborhood());

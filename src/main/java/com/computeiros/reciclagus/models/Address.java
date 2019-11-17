@@ -4,7 +4,7 @@ package com.computeiros.reciclagus.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "Address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

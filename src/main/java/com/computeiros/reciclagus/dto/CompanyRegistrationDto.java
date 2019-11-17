@@ -17,7 +17,6 @@ public class CompanyRegistrationDto {
     private String neighborhood;
     @NotEmpty
     private String street;
-    @NotEmpty
     private Integer number;
     @NotEmpty
     private String complement;

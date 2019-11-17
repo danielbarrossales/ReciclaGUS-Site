@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "trash")
+@Table(name = "Trash")
 public class Trash {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
