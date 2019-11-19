@@ -17,6 +17,8 @@ public class CollectionPointRegistrationDto {
     @NotEmpty
     private String complement;
 
+    private Integer id;
+
     public String getState() {
         return state;
     }
@@ -63,5 +65,13 @@ public class CollectionPointRegistrationDto {
 
     public void setComplement(String complement) {
         this.complement = complement;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

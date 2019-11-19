@@ -30,6 +30,7 @@ public class CollectionPointService {
         dto.setNumber(colle.getAddress().getNumber());
         dto.setState(colle.getAddress().getState());
         dto.setStreet(colle.getAddress().getStreet());
+        dto.setId(colle.getId());
         return dto;
     }
 

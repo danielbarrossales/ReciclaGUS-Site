@@ -20,7 +20,7 @@ public class ShowCollectionPointsController {
 
     @GetMapping
     String showAllCollectionPoints(Model model){
-        model.addAttribute("colectionPoints", collService.findAll());
-        return "pontos-coleta";
+        model.addAttribute("collectionPoints", collService.findAll());
+        return "collection-points";
     }
 }

@@ -37,6 +37,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Pontos de Coleta</span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/add-collection-point}">Adicionar Ponto de Coleta</a></li>
+                        <li><a th:href="@{/todos-pontos-coleta}">Ver Pontos de Coleta</a></li>
                     </ul>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Sair</a></li>
@@ -44,7 +45,7 @@
         </div>
     </div>
 </nav>
-    <br><br>
+    <br><br><br>
 </div>
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
