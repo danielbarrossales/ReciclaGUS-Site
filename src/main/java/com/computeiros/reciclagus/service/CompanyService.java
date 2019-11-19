@@ -1,10 +1,13 @@
 package com.computeiros.reciclagus.service;
 
+import com.computeiros.reciclagus.dto.CollectionPointRegistrationDto;
 import com.computeiros.reciclagus.dto.CompanyRegistrationDto;
 import com.computeiros.reciclagus.models.Company;
 import com.computeiros.reciclagus.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CompanyService {

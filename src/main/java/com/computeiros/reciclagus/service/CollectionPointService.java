@@ -6,10 +6,32 @@ import com.computeiros.reciclagus.repositories.CollectionPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CollectionPointService {
     @Autowired
     CollectionPointRepository collPointRepo;
+
+    public List<CollectionPointRegistrationDto> findAll() {
+        var list = new ArrayList<CollectionPointRegistrationDto>();
+        for(CollectionPoint cp : collPointRepo.findAll()){
+            list.add(collectionDtoFrom(cp));
+        }
+        return list;
+    }
+
+    private CollectionPointRegistrationDto collectionDtoFrom(CollectionPoint colle) {
+        var dto = new CollectionPointRegistrationDto();
+        dto.setCity(colle.getAddress().getCity());
+        dto.setComplement(colle.getAddress().getComplement());
+        dto.setNeighborhood(colle.getAddress().getNeighborhood());
+        dto.setNumber(colle.getAddress().getNumber());
+        dto.setState(colle.getAddress().getState());
+        dto.setStreet(colle.getAddress().getStreet());
+        return dto;
+    }
 
     public CollectionPoint save(CollectionPointRegistrationDto newCollPoint){
         var collPoint = new CollectionPoint();
@@ -21,4 +43,5 @@ public class CollectionPointService {
         collPoint.getAddress().setNeighborhood(newCollPoint.getNeighborhood());
         return collPointRepo.save(collPoint);
     }
+
 }

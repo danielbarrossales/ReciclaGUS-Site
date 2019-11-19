@@ -24,46 +24,6 @@ public class APIResearchController {
 
     @RequestMapping(value = "/api/research", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public String researchApi(){
-
-        //
-        //
-        Address add = new Address();
-        add.setCity("Gus");
-        add.setComplement("Nenhum");
-        add.setNumber(1234);
-        add.setId(1);
-        add.setState("PE");
-        add.setStreet("Alguma");
-        add.setNeighborhood(("Bairro"));
-        Trash t = new Trash();
-        t.setId(1);
-        t.setType("Eletronico");
-        Phone phone = new Phone();
-
-        phone.setDdd(87);
-        phone.setId(1);
-        phone.setNumero(981555161l);
-
-        CollectionCompany comp = new CollectionCompany();
-        comp.addTelefone(phone);
-        comp.setAddress(add);
-        comp.setCnpj("xxxxxxxxxxxxxx");
-        comp.setId(1);
-        comp.setNome("Empresa Fantasia");
-        phone.setCompany(comp);
-        Set<Trash> targets = new HashSet<Trash>();
-        targets.add(t);
-        comp.setTargets(targets);
-
-        CollectionPoint collP = new CollectionPoint();
-        collP.setAddress(add);
-        collP.setHost(comp);
-        collP.setTrashes(targets);
-
-        List<CollectionPoint> list = new ArrayList<CollectionPoint>();
-        list.add(collP);
-        //
-        //
         var r = collPointRep.findAll();
         ObjectMapper mapper = new ObjectMapper();
         String answer = null;
