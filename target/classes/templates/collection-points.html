@@ -2,54 +2,176 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link rel="stylesheet" type="text/css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+    <div th:replace="fragments/navbar :: head"></div>
 
     <title>Bem Vindo - ReciclaGUS</title>
 </head>
 <body>
-<!-- ################################# Navbar ############################################### -->
-<div th:replace="fragments/navbar :: navbar"></div>
+    <!-- ################################# Navbar ############################################### -->
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container">
-    <h1>Pontos de Coleta</h1>
-    <table>
-        <thead>
-        <tr>
-            <th> Id </th>
-            <th> Estado </th>
-            <th> Cidade </th>
-            <th> Bairro </th>
-            <th> Rua </th>
-            <th> Número </th>
-            <th> Complemento </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${collectionPoints.empty}">
-            <td colspan="2"> Sem pontos de coleta disponíveis. </td>
-        </tr>
-        <tr th:each="collectionPoint : ${collectionPoints}">
-            <td><span th:text="${collectionPoint.id}"> Id </span></td>
-            <td><span th:text="${collectionPoint.state}"> Estado </span></td>
-            <td><span th:text="${collectionPoint.city}"> Cidade </span></td>
-            <td><span th:text="${collectionPoint.neighborhood}"> Bairro </span></td>
-            <td><span th:text="${collectionPoint.street}"> Rua </span></td>
-            <td><span th:text="${collectionPoint.number}"> Numero </span></td>
-            <td><span th:text="${collectionPoint.complement}"> Complemento </span></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div th:if="${param.sucesso_apagar}">
+        <div class="alert alert-success">Ponto de Coleta apagado com sucesso!</div>
+    </div>
 
-<script type="text/javascript"
-        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript"
-        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <div th:if="${param.falha_apagar}">
+        <div class="alert alert-danger">Algum erro aconteceu ao apagar o Ponto de Coleta, tente novamente!</div>
+    </div>
+
+    <div th:if="${param.sucesso_atualizar}">
+        <div class="alert alert-success">Ponto de Coleta atualizado com sucesso!</div>
+    </div>
+
+    <div th:if="${param.falha_atualizar}">
+        <div class="alert alert-danger">Algum erro aconteceu ao modificar o Ponto de Coleta, tente novamente!</div>
+    </div>
+
+    <div class="container">
+        <h1>Pontos de Coleta</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"> Id</th>
+                <th scope="col"> Estado</th>
+                <th scope="col"> Cidade</th>
+                <th scope="col"> Bairro</th>
+                <th scope="col"> Rua</th>
+                <th scope="col"> Número</th>
+                <th scope="col"> Complemento</th>
+                <th scope="col"> Editar</th>
+                <th scope="col"> Apagar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${collectionPoints.empty}">
+                <td colspan="2"> Sem pontos de coleta disponíveis.</td>
+            </tr>
+            <tr th:each="collectionPoint : ${collectionPoints}">
+                <th scope="row"><span th:text="${collectionPoint.id}"> Id </span></th>
+                <td><span th:text="${collectionPoint.state}"> Estado </span></td>
+                <td><span th:text="${collectionPoint.city}"> Cidade </span></td>
+                <td><span th:text="${collectionPoint.neighborhood}"> Bairro </span></td>
+                <td><span th:text="${collectionPoint.street}"> Rua </span></td>
+                <td><span th:text="${collectionPoint.number}"> Numero </span></td>
+                <td><span th:text="${collectionPoint.complement}"> Complemento </span></td>
+                <td>
+                    <button type="button" class="btn btn-outline"data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning-edit'+${collectionPoint.id }"><span class="fa fa-pencil fa-lg"></span></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning-delete'+${collectionPoint.id }"><span class="fa fa-trash fa-lg"></span></button>
+                </td>
+
+                <!-- Caixa de confirmação para editar ponto de coleta-->
+                <div class="modal modal-warning fade in" th:id="modal-warning-edit+${collectionPoint.id }" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Editar Ponto de Coleta</h5>
+                            </div>
+
+                            <form th:action="@{/ponto-coleta/atualizar}" th:object="${collectionPoint}" method="post">
+
+                                <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+                                   th:each="error : ${#fields.errors('global')}" th:text="${error}">Erro de Validação</p>
+
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('id')}? 'has-error':''">
+                                    <label for="id" class="control-label">Id</label>
+                                    <input  readonly=true type="text"
+                                           id="id" class="form-control" name="id" th:attr="value= ${collectionPoint.id}" />
+                                    <p class="error-message"
+                                       th:each="error: ${#fields.errors('id')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+
+
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('state')}? 'has-error':''">
+                                    <label for="state" class="control-label">Estado</label> <input
+                                        id="state" class="form-control" th:field="*{state}" />
+                                    <p class="error-message"
+                                       th:each="error: ${#fields.errors('state')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('city')}? 'has-error':''">
+                                    <label for="city" class="control-label">Cidade</label> <input
+                                        id="city" class="form-control" th:field="*{city}" />
+                                    <p class="error-message"
+                                       th:each="error : ${#fields.errors('city')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('neighborhood')}? 'has-error':''">
+                                    <label for="neighborhood" class="control-label">Bairro</label> <input
+                                        id="neighborhood" class="form-control" th:field="*{neighborhood}" />
+                                    <p class="error-message"
+                                       th:each="error : ${#fields.errors('neighborhood')}" th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('street')}? 'has-error':''">
+                                    <label for="street" class="control-label">Rua</label>
+                                    <input id="street" class="form-control"
+                                           th:field="*{street}" />
+                                    <p class="error-message"
+                                       th:each="error : ${#fields.errors('street')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('number')}? 'has-error':''">
+                                    <label for="number" class="control-label">Numero</label> <input
+                                        id="number" class="form-control" th:field="*{number}" />
+                                    <p class="error-message"
+                                       th:each="error : ${#fields.errors('number')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('complement')}? 'has-error':''">
+                                    <label for="complement" class="control-label">Complemento</label>
+                                    <input id="complement" class="form-control"
+                                           th:field="*{complement}" />
+                                    <p class="error-message"
+                                       th:each="error : ${#fields.errors('complement')}"
+                                       th:text="${error}">Erro de Validação</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-success">Atualizar Ponto de Coleta</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caixa de confirmação para deletar ponto de coleta-->
+                <div class="modal modal-warning fade in" th:id="modal-warning-delete+${collectionPoint.id }" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Apagar Ponto de Coleta</h5>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Tem certeza que deseja apagar este ponto de coleta?</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Não</button>
+                                <a type="button" class="btn btn-outline" th:href="@{/ponto-coleta/apagar-id/{id}(id=${collectionPoint.id})}"><i class="fa fa-check"></i>&nbsp;Sim</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

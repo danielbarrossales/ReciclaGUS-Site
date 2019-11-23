@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -22,5 +23,10 @@ public class ShowCollectionPointsController {
     String showAllCollectionPoints(Model model){
         model.addAttribute("collectionPoints", collService.findAll());
         return "collection-points";
+    }
+
+    @ModelAttribute("collectionPoint")
+    public CollectionPointRegistrationDto userRegistrationDto() {
+        return new CollectionPointRegistrationDto();
     }
 }
