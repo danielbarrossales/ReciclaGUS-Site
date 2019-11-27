@@ -12,5 +12,5 @@ public interface CompanyRepository extends JpaRepository<Company, Integer>
 {
     @Async
     @Query("SELECT c FROM Company c where c.cnpj = ?1")
-    Company findByCnpj(String cnpj);
+    Optional<Company> findByCnpj(String cnpj);
 }

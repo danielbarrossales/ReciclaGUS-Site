@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:replace="fragments/navbar :: head"></div>
+
+    <title>Bem Vindo - ReciclaGUS</title>
+</head>
+<body>
+<!-- ################################# Navbar ############################################### -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div th:if="${param.sucesso_apagar}">
+    <div class="alert alert-success">Empresa apagado com sucesso!</div>
+</div>
+
+<div th:if="${param.falha_apagar}">
+    <div class="alert alert-danger">Algum erro aconteceu ao apagar a empresa, tente novamente!</div>
+</div>
+
+<div th:if="${param.sucesso_atualizar}">
+    <div class="alert alert-success">Empresa atualizado com sucesso!</div>
+</div>
+
+<div th:if="${param.falha_atualizar}">
+    <div class="alert alert-danger">Algum erro aconteceu ao modificar a empresa, tente novamente!</div>
+</div>
+
+
+<div class="container">
+    <h1>lista de empresas</h1>
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th scope="col"> Nome</th>
+            <th scope="col"> CNJP</th>
+            <th scope="col"> Estado</th>
+            <th scope="col"> Cidade</th>
+            <th scope="col"> Bairro</th>
+            <th scope="col"> Rua</th>
+            <th scope="col"> Número</th>
+            <th scope="col"> Complemento</th>
+            <th scope="col"> Editar</th>
+            <th scope="col"> Apagar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${companies.empty}">
+            <td colspan="2"> Sem empresas cadastradas.</td>
+        </tr>
+        <tr  th:each="companies : ${companies}">
+            <td scope="row"><span th:text="${companies.name}"> Nome </span></td>
+            <td><span th:text="${companies.cnpj}"> CNPJ </span></td>
+            <td><span th:text="${companies.state}"> Estado </span></td>
+            <td><span th:text="${companies.city}"> Cidade </span></td>
+            <td><span th:text="${companies.neighborhood}"> Bairro </span></td>
+            <td><span th:text="${companies.street}"> Rua </span></td>
+            <td><span th:text="${companies.number}"> Numero </span></td>
+            <td><span th:text="${companies.complement}"> Complemento </span></td>
+
+            <td>
+                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modal-warning"
+                        th:attr="data-target='#modal-warning-edit'+${companies.name }"><span
+                        class="fa fa-pencil fa-lg"></span></button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-warning"
+                        th:attr="data-target='#modal-warning-delete'+${companies.name }"><span
+                        class="fa fa-trash fa-lg"></span></button>
+            </td>
+
+            <!-- Caixa de confirmação para editar empresa-->
+            <div class="modal modal-warning fade in" th:id="modal-warning-edit+${companies.cnpj }">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Editar Empresa</h5>
+                        </div>
+
+                        <form th:action="@{/company/atualizar}" th:object="${companies}" method="post">
+
+                            <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+                               th:each="error : ${#fields.errors('global')}" th:text="${error}">Erro de Validação</p>
+
+
+
+
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar
+                                    </button>
+                                    <button type="submit" class="btn btn-success">Atualizar Empresa</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caixa de confirmação para deletar empresa-->
+            <div class="modal modal-warning fade in" th:id="modal-warning-delete+${companies.cnpj}" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Apagar empresa</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Tem certeza que deseja apagar esta empresa?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Não</button>
+                            <a type="button" class="btn btn-outline" th:href="@{/company-del/apagar-id/{id}(id=${companies.cnpj})}"><i class="fa fa-check"></i>&nbsp;Sim</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

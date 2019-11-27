@@ -2,11 +2,13 @@ package com.computeiros.reciclagus.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "Company")
-public class Company {
+@Table(name = "ListCompany")
+public class ListCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,7 +27,7 @@ public class Company {
     @Column(nullable = false)
     private List<Phone> phones = new ArrayList<Phone>();
 
-    public Company() {
+    public ListCompany() {
     }
 
     public Integer getId() {
@@ -71,6 +73,4 @@ public class Company {
     public void addTelefone(Phone phone) {
         this.phones.add(phone);
     }
-
-
 }
